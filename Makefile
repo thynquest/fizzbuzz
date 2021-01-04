@@ -4,4 +4,5 @@ build:
 	go build -mod=vendor
 
 test:
-	go test ./... -cover
+	go test -race $(go list ./... | grep -v /vendor/) -v -coverprofile=coverage.out
+	go tool cover -func=coverage.out

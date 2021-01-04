@@ -5,7 +5,9 @@ import (
 	"fmt"
 )
 
-//FizzBuzz : returns all multiple of multint1, multint2, and both in the range of limit
+/*
+FizzBuzz : returns all multiple of multint1, multint2, and both in the range of limit
+*/
 func FizzBuzz(multint1, multint2, limit int, multstr1, multstr2 string) ([]string, error) {
 	if limit <= 0 {
 		err := errors.New("limit parameter must be positive")

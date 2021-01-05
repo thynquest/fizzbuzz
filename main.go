@@ -52,6 +52,10 @@ func statsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+/*
+	Update the frequency
+	of the latest request processed
+*/
 func updateFrequency(multint1, multint2, limit, multstr1, multstr2 string) {
 	key := strings.Join([]string{multint1, multint2, limit, multstr1, multstr2}, ",")
 	frequency[key] = frequency[key] + 1

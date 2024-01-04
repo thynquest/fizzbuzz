@@ -1,8 +1,29 @@
-default:  build
+GO := go
 
+## BUILD ##
+.PHONY: build
 build:
-	go build -mod=vendor
+	$(GO) build cmd/app/main.go
+	@rm main
 
-test:
-	go test -race $(go list ./... | grep -v /vendor/) -v -coverprofile=coverage.out
-	go tool cover -func=coverage.out
+## DEPENDENCIES ##
+.PHONY: tidy
+tidy:
+	@$(GO) mod tidy
+
+.PHONY: unittest
+unittest:
+	$(GO) test ./...  -coverprofile=coverage.out.tmp
+	cat coverage.out.tmp  > coverage.out
+	rm coverage.out.tmp
+
+
+.PHONY: coverage
+coverage: unittest
+	$(GO) tool cover -func coverage.out
+	
+## RUN ##
+.PHONY: run
+run:
+	@export ENV_FILE="app.env" && \
+	$(GO) run cmd/app/main.go
